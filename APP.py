@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import base64
 import os
-import ploting_function as pf
+import plot_function as pf
 
 st.title("DDI Analysis")
 
