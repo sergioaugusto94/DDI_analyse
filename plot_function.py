@@ -32,7 +32,7 @@ def plot(df_plot, var):
 
     #--------PLOT----------
     # Recorded Data
-    fig = px.scatter(df_plot, 'Date', var, title=title_df, width=1400, height=800)
+    fig = px.scatter(df_plot, 'Date', var, title=title_df, width=1100, height=600)
     # Outliers Anotation
     if outliers.shape[0] != 0:
       for i in range(outliers.shape[0]):
