@@ -10,6 +10,9 @@ st.sidebar.markdown('To use the app, click on button below to ' +
 
 file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
+@st.cache(allow_output_mutation=True)
+def button_states():
+    return {"pressed": False}
 
 if file is not None:
     data = pd.read_excel(file, sheet_name='Channel Info')
