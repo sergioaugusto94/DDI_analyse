@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import base64
 import os
+import ploting_function as pf
 
 st.title("DDI Analysis")
 
@@ -56,6 +57,16 @@ if file is not None:
         globals()['df%s' % x] = data.where(data['Condition'] == 
                                            points[x-1]).dropna(subset=['File Name'])
     #---------------------------
+    
+    df_plot = df5
+    var = 'BSFC SI'
+    
+    if plot_button:
+        plot_state.update({'pressed': True})
+        
+    if plot_state['pressed']:
+        st.markdown('Previsão do recozimento feita pelo algoritmo:')
+        pf.plot(df5, var)
 
 
     
