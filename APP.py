@@ -66,7 +66,8 @@ if file is not None:
         
     if plot_state['pressed']:
         st.markdown('Previsão do recozimento feita pelo algoritmo:')
-        pf.plot(df5, var)
+        fig = pf.plot(df5, var)
+        st.pyplot(fig)
 
 
     
