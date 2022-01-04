@@ -12,7 +12,7 @@ file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
 if file is not None:
-    data = pd.read_excel(file.name, sheet_name='Channel Info')
+    data = pd.read_excel(file, sheet_name='Channel Info')
     st.dataframe(data)
     st.markdown('This is the loaded data')
     run_button = st.button('Plot')
