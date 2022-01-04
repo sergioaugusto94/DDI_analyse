@@ -45,8 +45,8 @@ if file is not None:
     
     st.dataframe(data)
     st.markdown('This is the loaded data')
-    run_button = st.button('Plot')
-    run_state = button_states()
+    plot_button = st.button('Plot')
+    plot_state = button_states()
     
 
 #-----Creating different dataframes for each engine operation-------
