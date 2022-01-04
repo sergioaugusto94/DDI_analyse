@@ -67,7 +67,7 @@ if file is not None:
     if plot_state['pressed']:
         st.markdown('Previsão do recozimento feita pelo algoritmo:')
         fig = pf.plot(df5, var)
-        st.pyplot(fig)
+        st.plotly_chart(fig)
 
 
     
