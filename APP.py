@@ -49,13 +49,13 @@ if file is not None:
     plot_state = button_states()
     
 
-#-----Creating different dataframes for each engine operation-------
-points = data['Condition'].unique()
+    #-----Creating different dataframes for each engine operation-------
+    points = data['Condition'].unique()
 
-for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
-    globals()['df%s' % x] = data.where(data['Condition'] == 
-                                       points[x-1]).dropna(subset=['File Name'])
-#---------------------------
+    for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
+        globals()['df%s' % x] = data.where(data['Condition'] == 
+                                           points[x-1]).dropna(subset=['File Name'])
+    #---------------------------
 
 
     
