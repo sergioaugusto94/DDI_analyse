@@ -60,4 +60,4 @@ def plot(df_plot, var):
                 text=(str(round(std_min[0],2))+ ' (- ' + 
                       str(round(df_plot[var].std()/df_plot[var].mean()*100,2)) + 
                       '%)'), showarrow=False, xanchor="left", yshift=8)
-    fig.show()
+    return fig
