@@ -24,27 +24,27 @@ def data_processing(file):
 	#---------------
 
 	#--------Variables-Units-Precision-------
-      	units = data.iloc[0,:]
-      	precision = data.iloc[1,:]
-      	variables = data.columns
+	units = data.iloc[0,:]
+	precision = data.iloc[1,:]
+	variables = data.columns
      	#---------------------------
 
       	#--------Removing Empty Rows and Defining Conditions that were ran-------
-      	data.dropna(inplace = True, subset = [data.columns[1]])
-      	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
+	data.dropna(inplace = True, subset = [data.columns[1]])
+	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
                                 'n VVT_ICL1_DIAL_CL_VAL', 
                                 'n DL_SPK_ADV', 
                                 'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
       	#---------------------------
 
       	#-----Defining the date that the test were ran--------------
-      	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
+	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
                       data['TimeStamp'].str.slice(start=3, stop=10) + 
                       data['TimeStamp'].str.slice(start=10, stop=19))
 
-      	data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
+	data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
       	#---------------------------
-      	return data
+	return data
 	
 
             
