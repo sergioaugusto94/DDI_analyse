@@ -53,29 +53,29 @@ if file is not None & change_vars:
     file_read = True
     #---------------------------
 
-if file_read:
-    change_vars = False
-    st.dataframe(data)
-    st.markdown('This is the loaded data')
-    
-    
-    #-----Drop down list for each variable-------
-    option = st.selectbox(
-    'How would you like to be contacted?', ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-    #------------
+    if file_read:
+        change_vars = False
+        st.dataframe(data)
+        st.markdown('This is the loaded data')
 
-    option2 = st.selectbox(
-    'How would you like to be contacted?', ('df1', 'df2', 'df3', 'df4', 'df5'))
 
-    dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-        
-    df_plot = dic[option2]
-    var = option
-    
-    
-    
-    plot_button = st.button('Plot')
-    plot_state = button_states()
+        #-----Drop down list for each variable-------
+        option = st.selectbox(
+        'How would you like to be contacted?', ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+        #------------
+
+        option2 = st.selectbox(
+        'How would you like to be contacted?', ('df1', 'df2', 'df3', 'df4', 'df5'))
+
+        dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
+
+        df_plot = dic[option2]
+        var = option
+
+
+
+        plot_button = st.button('Plot')
+        plot_state = button_states()
     
 
 
@@ -83,11 +83,11 @@ if file_read:
     #---------------------------
     
     
-    #if plot_button:
-        #plot_state.update({'pressed': True})
-        
-    #if plot_state['pressed']:
     if plot_button:
+        plot_state.update({'pressed': True})
+        
+    if plot_state['pressed']:
+    #if plot_button:
          
       
       
