@@ -56,30 +56,30 @@ if file is not None:
     for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
         globals()['df%s' % x] = data.where(data['Condition'] == 
                                            points[x-1]).dropna(subset=['File Name'])
-        
-    
-    #-----Drop down list for each variable-------
-    option = st.selectbox(
-     'How would you like to be contacted?',
-     ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-    #------------
-    
-    option2 = st.selectbox(
-     'How would you like to be contacted?',
-     ('df1', 'df2', 'df3', 'df4', 'df5'))
-    
-    dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-
-    
+            
     #---------------------------
     
-    df_plot = dic[option2]
-    var = option
     
     if plot_button:
         plot_state.update({'pressed': True})
         
     if plot_state['pressed']:
+          #-----Drop down list for each variable-------
+        option = st.selectbox(
+         'How would you like to be contacted?',
+         ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+        #------------
+
+        option2 = st.selectbox(
+         'How would you like to be contacted?',
+         ('df1', 'df2', 'df3', 'df4', 'df5'))
+
+        dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
+        
+        df_plot = dic[option2]
+        var = option
+      
+      
         st.markdown('Previsão do recozimento feita pelo algoritmo:')
         fig = pf.plot(df5, var)
         st.plotly_chart(fig)
