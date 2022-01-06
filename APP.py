@@ -51,13 +51,14 @@ def data_processing(file):
 #---------------------------
 
 @st.cache
-def show_df():     
-	st.dataframe(df)
+def show_df(file):     
+	st.dataframe(file)
 
 
 
      
 if file is not None:
+	show_df(file)
 	data = data_processing(file)
 	
 	#-----Creating different dataframes for each engine operation-------
