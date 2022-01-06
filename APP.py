@@ -17,7 +17,7 @@ change_vars = True
 def button_states():
     return {"pressed": False}
 
-if file is not None && change_vars:
+if file is not None and change_vars:
     #--------Loading dataset-------
     data = pd.read_excel(file, sheet_name='Channel Info')
     #---------------
