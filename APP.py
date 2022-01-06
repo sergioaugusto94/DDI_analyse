@@ -49,6 +49,15 @@ if file is not None:
     plot_button = st.button('Plot')
     plot_state = button_states()
     
+
+    #-----Creating different dataframes for each engine operation-------
+    points = data['Condition'].unique()
+
+    for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
+        globals()['df%s' % x] = data.where(data['Condition'] == 
+                                           points[x-1]).dropna(subset=['File Name'])
+        
+    
     #-----Drop down list for each variable-------
     option = st.selectbox(
      'How would you like to be contacted?',
@@ -62,13 +71,6 @@ if file is not None:
     dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
 
     
-
-    #-----Creating different dataframes for each engine operation-------
-    points = data['Condition'].unique()
-
-    for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
-        globals()['df%s' % x] = data.where(data['Condition'] == 
-                                           points[x-1]).dropna(subset=['File Name'])
     #---------------------------
     
     df_plot = dic[option2.values()]
