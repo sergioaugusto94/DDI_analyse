@@ -46,8 +46,6 @@ def data_processing(file):
                
 
 
-
-     
 if file is not None:
 	data = data_processing(file)
 	st.dataframe(data)
