@@ -17,6 +17,11 @@ file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 def button_states():
     return {"pressed": False}
 
+@st.cache(allow_output_mutation=True)
+def show_df(df):
+  st.markdown('This is the loaded data')
+  st.dataframe(df)
+
 if file is not None:
     #--------Loading dataset-------
     data = pd.read_excel(file, sheet_name='Channel Info')
@@ -44,8 +49,9 @@ if file is not None:
     data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
     #---------------------------
     
-    st.dataframe(data)
-    st.markdown('This is the loaded data')
+    
+    show_df(data)
+    
     plot_button = st.button('Plot')
     plot_state = button_states()
     
