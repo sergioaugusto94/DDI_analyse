@@ -65,7 +65,7 @@ if file is not None:
     #---------------------------
     
     df_plot = df5
-    var = option.values()
+    var = option
     
     if plot_button:
         plot_state.update({'pressed': True})
