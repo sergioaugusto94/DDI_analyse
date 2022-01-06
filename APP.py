@@ -47,39 +47,41 @@ file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 if file is not None:
 	data = data_processing(file)
+	
+	st.markdown('This is the loaded data')
 	st.dataframe(data)
 
-	
 	#-----Creating different dataframes for each engine operation-------
 	points = data['Condition'].unique()
 
 	for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
 		globals()['df%s' % x] = data.where(data['Condition'] == 
 					   	points[x-1]).dropna(subset=['File Name'])
+		
+				#-----Drop down list for each variable-------
+	option = st.selectbox(
+	'How would you like to be contacted?',
+	('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+	#------------
+
+	option2 = st.selectbox(
+	'How would you like to be contacted?',
+		('df1', 'df2', 'df3', 'df4', 'df5'))
+
+	dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
+
+	df_plot = dic[option2]
+	var = option
 	
 	plot_button = st.button('Plot')
 	plot_state = button_states()
         
-	st.markdown('This is the loaded data')
 	
 	if plot_button:
 		plot_state.update({'pressed': True})
 
 		if plot_state['pressed']:
-			#-----Drop down list for each variable-------
-			option = st.selectbox(
-			'How would you like to be contacted?',
-			('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-			#------------
 
-			option2 = st.selectbox(
-			'How would you like to be contacted?',
-				('df1', 'df2', 'df3', 'df4', 'df5'))
-
-			dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-
-			df_plot = dic[option2]
-			var = option
 
 
 			st.markdown('Previsão do recozimento feita pelo algoritmo:')
