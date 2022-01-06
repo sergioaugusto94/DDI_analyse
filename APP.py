@@ -11,13 +11,13 @@ st.sidebar.markdown('To use the app, click on button below to ' +
 
 file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
-change_vars = True
+
 #-----Display the dataset-------
 @st.cache(allow_output_mutation=True)
 def button_states():
     return {"pressed": False}
 
-if file is not None and change_vars:
+if file is not None:
     #--------Loading dataset-------
     data = pd.read_excel(file, sheet_name='Channel Info')
     #---------------
@@ -42,43 +42,20 @@ if file is not None and change_vars:
                     data['TimeStamp'].str.slice(start=10, stop=19))
 
     data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
+    #---------------------------
     
-        #-----Creating different dataframes for each engine operation-------
+    st.dataframe(data)
+    st.markdown('This is the loaded data')
+    plot_button = st.button('Plot')
+    plot_state = button_states()
+    
+
+    #-----Creating different dataframes for each engine operation-------
     points = data['Condition'].unique()
 
     for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
         globals()['df%s' % x] = data.where(data['Condition'] == 
                                            points[x-1]).dropna(subset=['File Name'])
-    
-    file_read = True
-    #---------------------------
-
-    if file_read:
-        change_vars = False
-        st.dataframe(data)
-        st.markdown('This is the loaded data')
-
-
-        #-----Drop down list for each variable-------
-        option = st.selectbox(
-        'How would you like to be contacted?', ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-        #------------
-
-        option2 = st.selectbox(
-        'How would you like to be contacted?', ('df1', 'df2', 'df3', 'df4', 'df5'))
-
-        dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-
-        df_plot = dic[option2]
-        var = option
-
-
-
-        plot_button = st.button('Plot')
-        plot_state = button_states()
-    
-
-
             
     #---------------------------
     
@@ -87,12 +64,24 @@ if file is not None and change_vars:
         plot_state.update({'pressed': True})
         
     if plot_state['pressed']:
-    #if plot_button:#
-         
+          #-----Drop down list for each variable-------
+        option = st.selectbox(
+         'How would you like to be contacted?',
+         ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+        #------------
+
+        option2 = st.selectbox(
+         'How would you like to be contacted?',
+         ('df1', 'df2', 'df3', 'df4', 'df5'))
+
+        dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
+        
+        df_plot = dic[option2]
+        var = option
       
       
         st.markdown('Previsão do recozimento feita pelo algoritmo:')
-        fig = pf.plot(df_plot, var)
+        fig = pf.plot(df5, var)
         st.plotly_chart(fig)
 
 
