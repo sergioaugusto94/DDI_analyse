@@ -50,7 +50,7 @@ if file is not None:
         globals()['df%s' % x] = data.where(data['Condition'] == 
                                            points[x-1]).dropna(subset=['File Name'])
     
-    file_read = true
+    file_read = True
     #---------------------------
 
 if file_read:    
