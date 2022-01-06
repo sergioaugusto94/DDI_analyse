@@ -89,7 +89,7 @@ if file is not None:
       
       
         st.markdown('Previsão do recozimento feita pelo algoritmo:')
-        fig = pf.plot(df5, var)
+        fig = pf.plot(df_plot, var)
         st.plotly_chart(fig)
 
 
