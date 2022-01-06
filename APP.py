@@ -57,7 +57,9 @@ if file is not None:
     
     option2 = st.selectbox(
      'How would you like to be contacted?',
-     {'df1': df1, 'df2': df2, 'df3': df3, 'df4':df4, 'df5':df5})
+     ('df1', 'df2', 'df3', 'df4', 'df5'))
+    
+    dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
 
     
 
@@ -69,7 +71,7 @@ if file is not None:
                                            points[x-1]).dropna(subset=['File Name'])
     #---------------------------
     
-    df_plot = option2.values()
+    df_plot = dic[option2]
     var = option
     
     if plot_button:
