@@ -57,7 +57,7 @@ if file is not None:
     
     option2 = st.selectbox(
      'How would you like to be contacted?',
-     {'df1': df1, 'df2': df2, 'df3': df3, 'df4':df4, 'df5':df5))
+     {'df1': df1, 'df2': df2, 'df3': df3, 'df4':df4, 'df5':df5})
 
     
 
