@@ -4,17 +4,6 @@ import base64
 import os
 import plot_function as pf
 
-st.title("DDI Analysis")
-
-st.sidebar.markdown('To use the app, click on button below to ' + 
-                    'upload your DDI database.')
-
-file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
-
-
-@st.cache(allow_output_mutation=True)
-def button_states():
-	return {"pressed": False}
 
 @st.cache
 def data_processing(file):
@@ -41,9 +30,19 @@ def data_processing(file):
 	data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
 	
 	return data
-	
 
-               
+
+@st.cache(allow_output_mutation=True)
+def button_states():
+	return {"pressed": False}
+
+
+st.title("DDI Analysis")
+
+st.sidebar.markdown('To use the app, click on button below to ' + 
+                    'upload your DDI database.')
+
+file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
 if file is not None:
