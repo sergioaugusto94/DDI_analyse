@@ -11,13 +11,13 @@ st.sidebar.markdown('To use the app, click on button below to ' +
 
 file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
-
+change_vars = True
 #-----Display the dataset-------
 @st.cache(allow_output_mutation=True)
 def button_states():
     return {"pressed": False}
 
-if file is not None:
+if file is not None & change_vars:
     #--------Loading dataset-------
     data = pd.read_excel(file, sheet_name='Channel Info')
     #---------------
@@ -53,7 +53,8 @@ if file is not None:
     file_read = True
     #---------------------------
 
-if file_read:    
+if file_read:
+    change_vars = False
     st.dataframe(data)
     st.markdown('This is the loaded data')
     
