@@ -17,7 +17,7 @@ file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 def button_states():
     return {"pressed": False}
 
-@st.cache(allow_output_mutation=True)
+@st.cache
 def show_df(df):
   st.markdown('This is the loaded data')
   st.dataframe(df)
