@@ -73,7 +73,7 @@ if file is not None:
     
     #---------------------------
     
-    df_plot = dic[option2.values()]
+    df_plot = dic[option2]
     var = option
     
     if plot_button:
