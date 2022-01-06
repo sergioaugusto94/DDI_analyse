@@ -49,6 +49,12 @@ if file is not None:
     plot_button = st.button('Plot')
     plot_state = button_states()
     
+    option = st.selectbox(
+     'How would you like to be contacted?',
+     ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+
+    st.write('You selected:', option)
+    
 
     #-----Creating different dataframes for each engine operation-------
     points = data['Condition'].unique()
@@ -59,7 +65,7 @@ if file is not None:
     #---------------------------
     
     df_plot = df5
-    var = 'BSFC SI'
+    var = option.values()
     
     if plot_button:
         plot_state.update({'pressed': True})
