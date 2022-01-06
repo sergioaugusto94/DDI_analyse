@@ -61,9 +61,10 @@ if file is not None:
     
     
     #if plot_button:
-      #  plot_state.update({'pressed': True})
+        #plot_state.update({'pressed': True})
         
-    if plot_state['pressed']:
+    #if plot_state['pressed']:
+    if plot_button:
           #-----Drop down list for each variable-------
         option = st.selectbox(
          'How would you like to be contacted?',
