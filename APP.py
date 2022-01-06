@@ -71,8 +71,9 @@ if file is not None:
 	plot_state = button_states()
         
 	st.markdown('This is the loaded data')
-		if plot_button:
-			plot_state.update({'pressed': True})
+	
+	if plot_button:
+		plot_state.update({'pressed': True})
 
 		if plot_state['pressed']:
 			#-----Drop down list for each variable-------
