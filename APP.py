@@ -43,18 +43,14 @@ def data_processing(file):
 	return data
 	
 
-            
-#-----------Display the Dataset
-@st.cache
-def show_df(file):     
-	st.dataframe(file)
+               
 
 
 
      
 if file is not None:
 	data = data_processing(file)
-	show_df(data)
+	st.dataframe(data)
 
 	
 	#-----Creating different dataframes for each engine operation-------
