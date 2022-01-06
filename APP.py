@@ -19,76 +19,72 @@ def button_states():
 
 @st.cache
 def show_df(df):
-  st.markdown('This is the loaded data')
-  st.dataframe(df)
+  if file is not None:
+      #--------Loading dataset-------
+      data = pd.read_excel(file, sheet_name='Channel Info')
+      #---------------
 
-if file is not None:
-    #--------Loading dataset-------
-    data = pd.read_excel(file, sheet_name='Channel Info')
-    #---------------
+      #--------Variables-Units-Precision-------
+      units = data.iloc[0,:]
+      precision = data.iloc[1,:]
+      variables = data.columns
+      #---------------------------
 
-    #--------Variables-Units-Precision-------
-    units = data.iloc[0,:]
-    precision = data.iloc[1,:]
-    variables = data.columns
-    #---------------------------
+      #--------Removing Empty Rows and Defining Conditions that were ran-------
+      data.dropna(inplace = True, subset = [data.columns[1]])
+      data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
+                                'n VVT_ICL1_DIAL_CL_VAL', 
+                                'n DL_SPK_ADV', 
+                                'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+      #---------------------------
 
-    #--------Removing Empty Rows and Defining Conditions that were ran-------
-    data.dropna(inplace = True, subset = [data.columns[1]])
-    data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
-                              'n VVT_ICL1_DIAL_CL_VAL', 
-                              'n DL_SPK_ADV', 
-                              'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
-    #---------------------------
+      #-----Defining the date that the test were ran--------------
+      data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
+                      data['TimeStamp'].str.slice(start=3, stop=10) + 
+                      data['TimeStamp'].str.slice(start=10, stop=19))
 
-    #-----Defining the date that the test were ran--------------
-    data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
-                    data['TimeStamp'].str.slice(start=3, stop=10) + 
-                    data['TimeStamp'].str.slice(start=10, stop=19))
+      data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
+      #---------------------------
 
-    data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
-    #---------------------------
-    
-    
-    show_df(data)
-    
-    plot_button = st.button('Plot')
-    plot_state = button_states()
-    
+      st.markdown('This is the loaded data')
+      show_df(data)
 
-    #-----Creating different dataframes for each engine operation-------
-    points = data['Condition'].unique()
+      plot_button = st.button('Plot')
+      plot_state = button_states()
 
-    for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
-        globals()['df%s' % x] = data.where(data['Condition'] == 
-                                           points[x-1]).dropna(subset=['File Name'])
+
+      #-----Creating different dataframes for each engine operation-------
+      points = data['Condition'].unique()
+
+      for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
+          globals()['df%s' % x] = data.where(data['Condition'] == 
+                                             points[x-1]).dropna(subset=['File Name'])
             
     #---------------------------
-    
-    
-    if plot_button:
-        plot_state.update({'pressed': True})
-        
-    if plot_state['pressed']:
-          #-----Drop down list for each variable-------
-        option = st.selectbox(
-         'How would you like to be contacted?',
-         ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-        #------------
+if file is not None:
+		if plot_button:
+				plot_state.update({'pressed': True})
 
-        option2 = st.selectbox(
-         'How would you like to be contacted?',
-         ('df1', 'df2', 'df3', 'df4', 'df5'))
+		if plot_state['pressed']:
+				#-----Drop down list for each variable-------
+				option = st.selectbox(
+				'How would you like to be contacted?',
+				('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+				#------------
 
-        dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-        
-        df_plot = dic[option2]
-        var = option
-      
-      
-        st.markdown('Previsão do recozimento feita pelo algoritmo:')
-        fig = pf.plot(df5, var)
-        st.plotly_chart(fig)
+				option2 = st.selectbox(
+				'How would you like to be contacted?',
+				('df1', 'df2', 'df3', 'df4', 'df5'))
+
+				dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
+
+				df_plot = dic[option2]
+				var = option
+
+
+				st.markdown('Previsão do recozimento feita pelo algoritmo:')
+				fig = pf.plot(df_plot, var)
+				st.plotly_chart(fig)
 
 
     
