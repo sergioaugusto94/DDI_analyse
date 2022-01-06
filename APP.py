@@ -71,7 +71,7 @@ if file is not None:
                                            points[x-1]).dropna(subset=['File Name'])
     #---------------------------
     
-    df_plot = dic[option2]
+    df_plot = dic[option2.values()]
     var = option
     
     if plot_button:
