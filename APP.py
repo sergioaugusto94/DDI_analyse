@@ -80,13 +80,13 @@ if file is not None:
 	if plot_button:
 		plot_state.update({'pressed': True})
 
-		if plot_state['pressed']:
+	if plot_state['pressed']:
 
 
 
-			st.markdown('Previsão do recozimento feita pelo algoritmo:')
-			fig = pf.plot(df_plot, var)
-			st.plotly_chart(fig)
+		st.markdown('Previsão do recozimento feita pelo algoritmo:')
+		fig = pf.plot(df_plot, var)
+		st.plotly_chart(fig)
 
 
     
