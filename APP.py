@@ -49,11 +49,16 @@ if file is not None:
     plot_button = st.button('Plot')
     plot_state = button_states()
     
+    #-----Drop down list for each variable-------
     option = st.selectbox(
      'How would you like to be contacted?',
      ('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+    #------------
+    
+    option2 = st.selectbox(
+     'How would you like to be contacted?',
+     {'df1': df1, 'df2': df2, 'df3': df3, 'df4':df4, 'df5':df5))
 
-    st.write('You selected:', option)
     
 
     #-----Creating different dataframes for each engine operation-------
@@ -64,7 +69,7 @@ if file is not None:
                                            points[x-1]).dropna(subset=['File Name'])
     #---------------------------
     
-    df_plot = df5
+    df_plot = option2
     var = option
     
     if plot_button:
