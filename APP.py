@@ -68,9 +68,9 @@ if file is not None:
 					   	points[x-1]).dropna(subset=['File Name'])
 	
 	plot_button = st.button('Plot')
-      	plot_state = button_states()
+	plot_state = button_states()
         
-      	st.markdown('This is the loaded data')
+	st.markdown('This is the loaded data')
 		if plot_button:
 			plot_state.update({'pressed': True})
 
