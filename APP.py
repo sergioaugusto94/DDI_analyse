@@ -59,12 +59,14 @@ if file is not None:
 					   	points[x-1]).dropna(subset=['File Name'])
 		
 				#-----Drop down list for each variable-------
-	option = st.selectbox(
+	form1 = st.form(key='Options')
+	
+	option = form1.selectbox(
 	'How would you like to be contacted?',
 	('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
 	#------------
 
-	option2 = st.selectbox(
+	option2 = form1.selectbox(
 	'How would you like to be contacted?',
 		('df1', 'df2', 'df3', 'df4', 'df5'))
 
