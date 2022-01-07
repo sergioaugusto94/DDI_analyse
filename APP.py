@@ -7,7 +7,7 @@ import plot_function as pf
 # Criar uma variável de estado que evita com que a função data_processing seja re executada
 # Exportar a variável data processada 
 
-#@st.cache
+@st.cache
 def data_processing(file):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
@@ -46,24 +46,21 @@ st.sidebar.markdown('To use the app, click on button below to ' +
 
 file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
-#if 'run_num' not in st.session_state:
-	#st.session_state.run_num = 0
 
 if file is not None:
-	#if st.session_state.run_num == 0:
 	data = data_processing(file)
+	
+	st.markdown('This is the loaded data')
+	st.dataframe(data)
 
 	#-----Creating different dataframes for each engine operation-------
 	points = data['Condition'].unique()
 
 	for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
 		globals()['df%s' % x] = data.where(data['Condition'] == 
-						points[x-1]).dropna(subset=['File Name'])
+					   	points[x-1]).dropna(subset=['File Name'])
 		
-	st.markdown('This is the loaded data')
-	st.dataframe(data)
-		
-	#-----Drop down list for each variable-------
+				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
 	option = form1.selectbox(
@@ -89,9 +86,9 @@ if file is not None:
 
 	#if plot_state['pressed']:
 	if plot_button:
-		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, var)
 		st.plotly_chart(fig)
 
 
+    
     
