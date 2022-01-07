@@ -4,6 +4,8 @@ import base64
 import os
 import plot_function as pf
 
+# Criar uma variável de estado que evita com que a função data_processing seja re executada
+# Exportar a variável data processada 
 
 @st.cache
 def data_processing(file):
