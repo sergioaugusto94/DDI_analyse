@@ -7,7 +7,7 @@ import plot_function as pf
 # Criar uma variável de estado que evita com que a função data_processing seja re executada
 # Exportar a variável data processada 
 
-@st.cache
+#@st.cache
 def data_processing(file):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
