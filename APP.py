@@ -75,7 +75,7 @@ if file is not None:
 	df_plot = dic[option2]
 	var = option
 	
-	plot_button = st.button('Plot')
+	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
         
 	
