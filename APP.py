@@ -49,18 +49,22 @@ file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 
+if 'data_save' not in st.session_state:
+	st.session_state.data_save = 0
+
 if file is not None:
 	if st.session_state.run_num == 0:
 		data = data_processing(file)
+		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
-	st.dataframe(data)
+	st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
-	points = data['Condition'].unique()
+	points = st.session_state.data_save['Condition'].unique()
 
-	for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
-		globals()['df%s' % x] = data.where(data['Condition'] == 
+	for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
+		globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	points[x-1]).dropna(subset=['File Name'])
 		
 				#-----Drop down list for each variable-------
