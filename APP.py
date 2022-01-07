@@ -50,7 +50,7 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 
 if file is not None:
-	if run_num == 0:
+	if st.session_state.run_num == 0:
 		data = data_processing(file)
 
 		#-----Creating different dataframes for each engine operation-------
