@@ -50,7 +50,8 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 
 if file is not None:
-	data = data_processing(file)
+	if st.session_state.run_num == 0:
+		data = data_processing(file)
 	
 	st.markdown('This is the loaded data')
 	st.dataframe(data)
@@ -88,6 +89,7 @@ if file is not None:
 
 	#if plot_state['pressed']:
 	if plot_button:
+		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, var)
 		st.plotly_chart(fig)
 
