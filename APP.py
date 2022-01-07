@@ -46,8 +46,8 @@ st.sidebar.markdown('To use the app, click on button below to ' +
 
 file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
-if 'run_num' not in st.session_state:
-	st.session_state.run_num = 0
+#if 'run_num' not in st.session_state:
+	#st.session_state.run_num = 0
 
 if file is not None:
 	#if st.session_state.run_num == 0:
