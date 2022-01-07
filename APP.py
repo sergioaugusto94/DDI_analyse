@@ -50,15 +50,15 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 
 if file is not None:
-	if st.session_state.run_num == 0:
-		data = data_processing(file)
+	#if st.session_state.run_num == 0:
+	data = data_processing(file)
 
-		#-----Creating different dataframes for each engine operation-------
-		points = data['Condition'].unique()
+	#-----Creating different dataframes for each engine operation-------
+	points = data['Condition'].unique()
 
-		for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
-			globals()['df%s' % x] = data.where(data['Condition'] == 
-							points[x-1]).dropna(subset=['File Name'])
+	for x in range(1, 1 + len(data.groupby('Condition').count().iloc[:, 1])):
+		globals()['df%s' % x] = data.where(data['Condition'] == 
+						points[x-1]).dropna(subset=['File Name'])
 		
 	st.markdown('This is the loaded data')
 	st.dataframe(data)
