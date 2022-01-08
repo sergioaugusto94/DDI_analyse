@@ -76,10 +76,15 @@ if st.session_state.file_save is not None:
 				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
+	vars = st.session_state.data_save.columns
+	
+	#option = form1.selectbox(
+	#'How would you like to be contacted?',
+	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+	
 	option = form1.selectbox(
-	'How would you like to be contacted?',
-	('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-	#------------
+	'How would you like to be contacted?', vars)
+	
 
 	option2 = form1.selectbox(
 	'How would you like to be contacted?',
