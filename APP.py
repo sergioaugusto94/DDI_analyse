@@ -46,19 +46,21 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 if 'data_save' not in st.session_state:
 	st.session_state.data_save = 0
+if 'file_save' not in st.session_state:
+	st.session_state.file_save = 0
 	
 	
 if st.session_state.run_num == 0:
 	st.sidebar.markdown('To use the app, click on button below to ' + 
 			    'upload your DDI database.')
 
-	file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
+	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
 
-if file is not None:
+if st.session_state.file_save is not None:
 	if st.session_state.run_num == 0:
-		data = data_processing(file)
+		data = data_processing(st.session_state.file_save)
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
