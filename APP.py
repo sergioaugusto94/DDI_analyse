@@ -44,15 +44,18 @@ st.title("DDI Analysis")
 
 if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
-if 'data_save' not in st.session_state:
-	st.session_state.data_save = 0
-if 'file_save' not in st.session_state:
-	st.session_state.file_save = 0
 	
 	
 if st.session_state.run_num == 0:
 	st.sidebar.markdown('To use the app, click on button below to ' + 
 			    'upload your DDI database.')
+	
+	if 'data_save' not in st.session_state:
+		st.session_state.data_save = 0
+	if 'file_save' not in st.session_state:
+		st.session_state.file_save = 0
+	if 'outliers_save' not in st.session_state:
+		st.session_state.outliers_save = 0
 
 	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
@@ -62,6 +65,11 @@ if st.session_state.file_save is not None:
 	if st.session_state.run_num == 0:
 		data = data_processing(st.session_state.file_save)
 		st.session_state.data_save = data
+		
+		std_multiplyer = 1.5
+		st.session_state.outliers_save = df_plot[(df_plot[var] < df_plot[var].mean() - std_multiplyer*df_plot[var].std()) | 
+                   (df_plot[var] > std_multiplyer*df_plot[var].std() + 
+                    df_plot[var].mean())].dropna(subset=['File Name'])
 	
 	st.markdown('This is the loaded data')
 	
@@ -81,12 +89,9 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns
 	
-	#option = form1.selectbox(
-	#'How would you like to be contacted?',
-	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
 	
 	option = form1.selectbox(
-	'How would you like to be contacted?', vars)
+	'How would you like to be contacted?', st.session_state.outliers_save)
 	
 
 	option2 = form1.selectbox(
@@ -102,10 +107,6 @@ if st.session_state.file_save is not None:
 	plot_state = button_states()
         
 	
-	#if plot_button:
-		#plot_state.update({'pressed': True})
-
-	#if plot_state['pressed']:
 	if plot_button:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, var)
