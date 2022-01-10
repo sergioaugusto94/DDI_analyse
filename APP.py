@@ -67,9 +67,9 @@ if st.session_state.file_save is not None:
 		st.session_state.data_save = data
 		
 		std_multiplyer = 1.5
-		st.session_state.outliers_save = df_plot[(df_plot[var] < df_plot[var].mean() - std_multiplyer*df_plot[var].std()) | 
-                   (df_plot[var] > std_multiplyer*df_plot[var].std() + 
-                    df_plot[var].mean())].dropna(subset=['File Name'])
+		#st.session_state.outliers_save = df_plot[(df_plot[var] < df_plot[var].mean() - std_multiplyer*df_plot[var].std()) | 
+                   #(df_plot[var] > std_multiplyer*df_plot[var].std() + 
+                    #df_plot[var].mean())].dropna(subset=['File Name'])
 	
 	st.markdown('This is the loaded data')
 	
