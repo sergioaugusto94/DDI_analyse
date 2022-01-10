@@ -46,21 +46,19 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 if 'data_save' not in st.session_state:
 	st.session_state.data_save = 0
-if 'file_save' not in st.session_state:
-	st.session_state.file_save = 0
 	
 	
 if st.session_state.run_num == 0:
 	st.sidebar.markdown('To use the app, click on button below to ' + 
 			    'upload your DDI database.')
 
-	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
+	file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
 
-if st.session_state.file_save is not None:
+if file is not None:
 	if st.session_state.run_num == 0:
-		data = data_processing(st.session_state.file_save)
+		data = data_processing(file)
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
@@ -76,15 +74,10 @@ if st.session_state.file_save is not None:
 				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
-	vars = st.session_state.data_save.columns
-	
-	#option = form1.selectbox(
-	#'How would you like to be contacted?',
-	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-	
 	option = form1.selectbox(
-	'How would you like to be contacted?', vars)
-	
+	'How would you like to be contacted?',
+	('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+	#------------
 
 	option2 = form1.selectbox(
 	'How would you like to be contacted?',
