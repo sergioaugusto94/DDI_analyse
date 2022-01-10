@@ -86,11 +86,11 @@ if st.session_state.file_save is not None:
 	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
 	
 	option = form1.selectbox(
-	'How would you like to be contacted?', vars)
+	'Choose the variable to be ploted', vars)
 	
 
 	option2 = form1.selectbox(
-	'How would you like to be contacted?',
+	'Choose engine operation condition',
 		('df1', 'df2', 'df3', 'df4', 'df5'))
 
 	dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
