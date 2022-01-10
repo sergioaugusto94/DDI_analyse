@@ -64,10 +64,7 @@ if st.session_state.file_save is not None:
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
-	
-	
-	if st.checkbox('Show Loaded Data'):
-		st.dataframe(st.session_state.data_save)
+	st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
 	points = st.session_state.data_save['Condition'].unique()
