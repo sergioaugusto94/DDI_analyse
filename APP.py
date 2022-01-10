@@ -90,8 +90,7 @@ if st.session_state.file_save is not None:
 	vars = st.session_state.data_save.columns
 	
 	
-	option = form1.selectbox(
-	'How would you like to be contacted?', st.session_state.outliers_save)
+	option = form1.selectbox('How would you like to be contacted?', vars)
 	
 
 	option2 = form1.selectbox(
