@@ -46,23 +46,28 @@ if 'run_num' not in st.session_state:
 	st.session_state.run_num = 0
 if 'data_save' not in st.session_state:
 	st.session_state.data_save = 0
+if 'file_save' not in st.session_state:
+	st.session_state.file_save = 0
 	
 	
 if st.session_state.run_num == 0:
 	st.sidebar.markdown('To use the app, click on button below to ' + 
 			    'upload your DDI database.')
 
-	file = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
+	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
 
-if file is not None:
+if st.session_state.file_save is not None:
 	if st.session_state.run_num == 0:
-		data = data_processing(file)
+		data = data_processing(st.session_state.file_save)
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
-	st.dataframe(st.session_state.data_save)
+	
+	
+	if st.checkbox('Show Loaded Data'):
+		st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
 	points = st.session_state.data_save['Condition'].unique()
@@ -74,10 +79,15 @@ if file is not None:
 				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
+	vars = st.session_state.data_save.columns
+	
+	#option = form1.selectbox(
+	#'How would you like to be contacted?',
+	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
+	
 	option = form1.selectbox(
-	'How would you like to be contacted?',
-	('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-	#------------
+	'How would you like to be contacted?', vars)
+	
 
 	option2 = form1.selectbox(
 	'How would you like to be contacted?',
@@ -100,3 +110,7 @@ if file is not None:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, var)
 		st.plotly_chart(fig)
+
+
+    
+    
