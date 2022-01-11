@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 
 def plot(df_plot, *args):
     
-    var = args
+    var = str(args)
     # Defining the plot title
     thr_title = 'WOT, '
     vvl_state = 'HL, '
