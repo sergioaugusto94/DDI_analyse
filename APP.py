@@ -72,9 +72,9 @@ if st.session_state.file_save is not None:
 	#-----Creating different dataframes for each engine operation-------
 	points = st.session_state.data_save['Condition'].unique()
 
-	for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
-		globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
-					   	points[x-1]).dropna(subset=['File Name'])
+	#for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
+	#	globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
+	#				   	points[x-1]).dropna(subset=['File Name'])
 		
 				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
@@ -85,12 +85,11 @@ if st.session_state.file_save is not None:
 	'Choose the variable to be ploted', vars)
 
 	option2 = form1.selectbox(
-	'Choose engine operation condition',
-		('df1', 'df2', 'df3', 'df4', 'df5'))
+	'Choose engine operation condition', points)
 
-	dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-
-	df_plot = dic[option2]
+	
+	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
+					   	option2).dropna(subset=['File Name'])
 	var = option
 	
 	plot_button = form1.form_submit_button('Plot')
