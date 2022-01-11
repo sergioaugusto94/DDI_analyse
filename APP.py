@@ -82,7 +82,7 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns
 	
-	option = form1.selectbox(
+	var_plot = form1.selectbox(
 	'Choose the variable to be ploted', vars)
 
 	option2 = form1.selectbox(
@@ -91,14 +91,14 @@ if st.session_state.file_save is not None:
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
-	var = option
+	
 	
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
         
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, var)
+		fig = pf.plot(df_plot, var_plot)
 		st.plotly_chart(fig)
 
 
