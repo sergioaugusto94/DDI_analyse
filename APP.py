@@ -4,8 +4,8 @@ import base64
 import os
 import plot_function as pf
 
-# Criar uma variável de estado que evita com que a função data_processing seja re executada
-# Exportar a variável data processada 
+#Plotar mais de uma variável no gráfico 
+#Plotar mais de um gráfico
 
 @st.cache
 def data_processing(file):
@@ -81,13 +81,8 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns
 	
-	#option = form1.selectbox(
-	#'How would you like to be contacted?',
-	#('BSFC SI', 'BMEP SI', 'n VVL_STATE_ACT'))
-	
 	option = form1.selectbox(
 	'Choose the variable to be ploted', vars)
-	
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition',
@@ -101,11 +96,6 @@ if st.session_state.file_save is not None:
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
         
-	
-	#if plot_button:
-		#plot_state.update({'pressed': True})
-
-	#if plot_state['pressed']:
 	if plot_button:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, var)
@@ -113,4 +103,4 @@ if st.session_state.file_save is not None:
 
 
     
-    
+ 
