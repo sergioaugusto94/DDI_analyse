@@ -3,6 +3,7 @@ import pandas as pd
 import base64
 import os
 import plot_function as pf
+import numpy as np
 
 #Plotar mais de uma variável no gráfico 
 #Plotar mais de um gráfico
