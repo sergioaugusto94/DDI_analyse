@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 import os
 import plot_function as pf
-import numpy as np
+
 
 #Plotar mais de uma variável no gráfico 
 #Plotar mais de um gráfico
@@ -71,7 +71,7 @@ if st.session_state.file_save is not None:
 		st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
-	points = np.sort(st.session_state.data_save['Condition'].unique())
+	points = st.session_state.data_save['Condition'].unique()
 
 	#for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
 	#	globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
