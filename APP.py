@@ -4,7 +4,7 @@ import base64
 import os
 import plot_function as pf
 
-#Plotar mais de uma variável no gráfico 
+#Plotar mais de uma variável no gráfico (alterar a função ploting)
 #Plotar mais de um gráfico
 
 @st.cache
