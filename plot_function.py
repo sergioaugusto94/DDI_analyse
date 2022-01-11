@@ -2,9 +2,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-def plot(df_plot, *args):
-    
-    var = str(args)
+#def plot(df_plot, var, var2 = None, var3 = None, var4 = None, var5 = None, var6 = None, var7 = None, var8 = None):
+def plot(df_plot, *args)    
+    for i in args:
+        var = i
+    #var = str(args)
     # Defining the plot title
     thr_title = 'WOT, '
     vvl_state = 'HL, '
