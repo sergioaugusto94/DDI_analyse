@@ -70,7 +70,7 @@ if st.session_state.file_save is not None:
 		st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
-	points = st.session_state.data_save['Condition'].unique().sort()
+	points = np.sort(st.session_state.data_save['Condition'].unique())
 
 	#for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
 	#	globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
