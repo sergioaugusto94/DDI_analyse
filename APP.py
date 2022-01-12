@@ -82,7 +82,7 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns
 	
-	var_plot = form1.selectbox(
+	var_plot = form1.multiselect(
 	'Choose the variable to be ploted', vars)
 
 	option2 = form1.selectbox(
