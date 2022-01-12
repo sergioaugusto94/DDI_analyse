@@ -72,8 +72,8 @@ def plot(df_plot, *args):
     fig.add_trace(go.Scatter(x=df_plot['Date'], y=std_min, mode='lines', 
                              line=dict(dash='dot', color='orange'), name='Std min'))
     fig.add_annotation(x=df_plot['Date'].min(), y=std_min[0],
-                text=(str(round(std_max[0],2))+ ' (- ' + 
-                      str(round((std_max[0]-mean[0])/mean[0]*100,2)) + 
+                text=(str(round(std_min[0],2))+ ' (- ' + 
+                      str(round((std_min[0]-mean[0])/mean[0]*100,2)) + 
                       '%)'), showarrow=False, xanchor="left", yshift=8)
 
 
