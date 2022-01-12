@@ -4,10 +4,10 @@ import pandas as pd
 
 
 #def plot(df_plot, var, var2 = None, var3 = None, var4 = None, var5 = None, var6 = None, var7 = None, var8 = None):
-def plot(df_plot, *args):    
+def plot(df_plot, lista):    
  #   for i in args:
   #      var.append(i)
-    var = args
+    var = lista
 
     # Defining the plot title
     thr_title = 'WOT, '
