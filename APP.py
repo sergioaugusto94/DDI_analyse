@@ -98,7 +98,7 @@ if st.session_state.file_save is not None:
         
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, var_plot)
+		fig = pf.plot(df_plot, list(var_plot))
 		st.plotly_chart(fig)
 
 
