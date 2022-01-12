@@ -4,8 +4,6 @@ import base64
 import os
 import plot_function as pf
 
-
-#Plotar mais de uma variável no gráfico 
 #Plotar mais de um gráfico
 
 @st.cache
@@ -101,7 +99,3 @@ if st.session_state.file_save is not None:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot))
 		st.plotly_chart(fig)
-
-
-    
- 
