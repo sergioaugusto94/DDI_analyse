@@ -4,9 +4,6 @@ import base64
 import os
 import plot_function as pf
 
-#Plotar mais de uma variável no gráfico (alterar a função ploting)
-#Plotar mais de um gráfico
-
 @st.cache
 def data_processing(file):
 	#--------Loading dataset-------
@@ -70,37 +67,28 @@ if st.session_state.file_save is not None:
 		st.dataframe(st.session_state.data_save)
 
 	#-----Creating different dataframes for each engine operation-------
-	points = st.session_state.data_save['Condition'].unique()
-
-	for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
-		globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
-					   	points[x-1]).dropna(subset=['File Name'])
+	points = sorted(st.session_state.data_save['Condition'].unique())
 		
-				#-----Drop down list for each variable-------
+	#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
 	vars = st.session_state.data_save.columns
 	
-	option = form1.selectbox(
+	var_plot = form1.selectbox(
 	'Choose the variable to be ploted', vars)
 
 	option2 = form1.selectbox(
-	'Choose engine operation condition',
-		('df1', 'df2', 'df3', 'df4', 'df5'))
+	'Choose engine operation condition', points)
 
-	dic = {'df1': df1, 'df2': df2, 'df3': df3, 'df4': df4, 'df5': df5}
-
-	df_plot = dic[option2]
-	var = option
+	
+	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
+					   	option2).dropna(subset=['File Name'])
+	
 	
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
         
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, var)
+		fig = pf.plot(df_plot, var_plot)
 		st.plotly_chart(fig)
-
-
-    
- 
