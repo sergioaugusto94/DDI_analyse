@@ -6,6 +6,7 @@ import pandas as pd
 def plot(df_plot, lista):
 
 	var = lista
+	
     # Defining the plot title
 	thr_title = 'WOT, '
 	vvl_state = 'HL, '
@@ -38,7 +39,7 @@ def plot(df_plot, lista):
 	
 	#--------PLOT----------
 	# Recorded Data
-	fig = px.scatter( width=1100, height=600)
+	fig = px.scatter(width=1100, height=600, title=title_df)
 
 	for i in range(0, len(var)):
 		fig.add_trace(go.Scatter(x = df_plot['Date'], y=df_plot[var[i]], 
