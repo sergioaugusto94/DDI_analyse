@@ -7,7 +7,7 @@ import pandas as pd
 def plot(df_plot, *args):    
  #   for i in args:
   #      var.append(i)
-    var = list(args)
+    var = list(map(str,args))
 
     # Defining the plot title
     thr_title = 'WOT, '
