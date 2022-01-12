@@ -40,7 +40,7 @@ def plot(df_plot, *args):
                         right_index=True)
     #--------PLOT----------
     # Recorded Data
-    fig = px.scatter( width=1400, height=800)
+    fig = px.scatter( width=1100, height=600)
 
     for i in range(0, len(var)):
       fig.add_trace(go.Scatter(x = df_plot['Date'], y=df_plot[var[i]], 
