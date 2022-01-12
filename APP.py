@@ -4,6 +4,8 @@ import base64
 import os
 import plot_function as pf
 
+#Plotar mais de um gráfico
+
 @st.cache
 def data_processing(file):
 	#--------Loading dataset-------
@@ -72,9 +74,9 @@ if st.session_state.file_save is not None:
 	#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
-	vars = st.session_state.data_save.columns
+	vars = st.session_state.data_save.columns.values.tolist()
 	
-	var_plot = form1.selectbox(
+	var_plot = form1.multiselect(
 	'Choose the variable to be ploted', vars)
 
 	option2 = form1.selectbox(
@@ -87,8 +89,9 @@ if st.session_state.file_save is not None:
 	
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
-        
+	
+
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, var_plot)
+		fig = pf.plot(df_plot, list(var_plot))
 		st.plotly_chart(fig)
