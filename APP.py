@@ -80,7 +80,7 @@ if st.session_state.file_save is not None:
 				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
-	vars = st.session_state.data_save.columns.values.to_list()
+	vars = st.session_state.data_save.columns.values.tolist()
 	
 	var_plot = form1.multiselect(
 	'Choose the variable to be ploted', vars)
