@@ -22,6 +22,8 @@ def data_processing(file):
                                 'n VVT_ICL1_DIAL_CL_VAL', 
                                 'n DL_SPK_ADV', 
                                 'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	data['Engine'] = data['File Name'].str[0:11]
+	data['Eng_dummy'] = pd.get_dummies(data['Engine'])[data['Engine'].iloc[0]]
 
       	#-----Defining the date that the test were ran--------------
 	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
@@ -71,7 +73,7 @@ if st.session_state.file_save is not None:
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
 		
-	#-----Drop down list for each variable-------
+				#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
 	vars = st.session_state.data_save.columns.values.tolist()
@@ -81,6 +83,8 @@ if st.session_state.file_save is not None:
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
+	
+	check_std = form1.checkbox('Print Outliers Description')
 
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
@@ -93,5 +97,5 @@ if st.session_state.file_save is not None:
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot))
+		fig = pf.plot(df_plot, list(var_plot), check_std)
 		st.plotly_chart(fig)
