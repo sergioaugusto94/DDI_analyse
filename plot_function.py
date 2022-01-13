@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
-def plot(df_plot, lista):
+def plot(df_plot, lista, check_std):
 
 	var = lista
 	
@@ -53,13 +53,14 @@ def plot(df_plot, lista):
 	melted_out = outliers.melt(id_vars=['Date']).dropna(subset=['value'])
 
 	# Outliers Anotation
-	if melted_out.shape[0] != 0:
-		for j in range(melted_out.shape[0]):
-			fig.add_annotation(x=melted_out['Date'].iloc[j], y=melted_out['value'].iloc[j],
-					   text=(str(round(melted_out['value'].iloc[j],2))+ ' ( ' + 
-						 str(round((melted_out['value'].iloc[j]-mean[0])/
-							   mean[0]*100,2)) + '%)'), 
-					   showarrow=False, xanchor="left", xshift=8)
+	if check_std:
+		if melted_out.shape[0] != 0:
+			for j in range(melted_out.shape[0]):
+				fig.add_annotation(x=melted_out['Date'].iloc[j], y=melted_out['value'].iloc[j],
+						   text=(str(round(melted_out['value'].iloc[j],2))+ ' ( ' + 
+							 str(round((melted_out['value'].iloc[j]-mean[0])/
+								   mean[0]*100,2)) + '%)'), 
+						   showarrow=False, xanchor="left", xshift=8)
 	# Mean Line
 	fig.add_trace(go.Scatter(x=df_plot['Date'], y=mean, mode='lines', 
 				 line=dict(dash='dot', color='black'), name='Mean'))
