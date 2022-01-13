@@ -73,11 +73,8 @@ if st.session_state.file_save is not None:
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
 
-	#for x in range(1, 1 + len(st.session_state.data_save.groupby('Condition').count().iloc[:, 1])):
-	#	globals()['df%s' % x] = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
-	#				   	points[x-1]).dropna(subset=['File Name'])
-		
-				#-----Drop down list for each variable-------
+	
+	#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
 	vars = st.session_state.data_save.columns.values.tolist()
@@ -90,6 +87,7 @@ if st.session_state.file_save is not None:
 	
 	check_std = form1.checkbox('Print Outliers Description')
 
+	n_data = st.number_input('Points to Analyse', min_value=0, value=int(500))
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
@@ -101,5 +99,5 @@ if st.session_state.file_save is not None:
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot), check_std)
+		fig = pf.plot(df_plot, list(var_plot), check_std, n_data)
 		st.plotly_chart(fig)
