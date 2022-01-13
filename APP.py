@@ -7,10 +7,10 @@ import plot_function as pf
 #Plotar mais de um gráfico
 
 @st.cache
-def data_processing(file, n_data):
+def data_processing(file):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
-	data = data.sort_values('Date').tail(n_data)
+	
 	#--------Variables-Units-Precision-------
 	units = data.iloc[0,:]
 	precision = data.iloc[1,:]
@@ -58,7 +58,6 @@ if st.session_state.run_num == 0:
 	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 
 
-n_data = st.number_input('Points to Analyse', min_value=0, value=int(500))
 
 if st.session_state.file_save is not None:
 	if st.session_state.run_num == 0:
@@ -90,6 +89,9 @@ if st.session_state.file_save is not None:
 	'Choose engine operation condition', points)
 	
 	check_std = form1.checkbox('Print Outliers Description')
+	
+	n_data = st.number_input('Points to Analyse', min_value=0, value=int(500))
+
 
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
@@ -102,5 +104,5 @@ if st.session_state.file_save is not None:
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot), check_std)
+		fig = pf.plot(df_plot, list(var_plot), check_std, n_data)
 		st.plotly_chart(fig)
