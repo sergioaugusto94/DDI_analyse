@@ -98,6 +98,7 @@ if st.session_state.file_save is not None:
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
 	
+	st.dataframe(st.session_state.data_save)
 
 	if plot_button:
 		st.session_state.run_num = 1
