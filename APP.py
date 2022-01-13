@@ -7,10 +7,10 @@ import plot_function as pf
 #Plotar mais de um gráfico
 
 @st.cache
-def data_processing(file):
+def data_processing(file, n_data):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
-
+	data = data.sort_values('Date').tail(n_data).shape[0]
 	#--------Variables-Units-Precision-------
 	units = data.iloc[0,:]
 	precision = data.iloc[1,:]
@@ -60,8 +60,9 @@ if st.session_state.run_num == 0:
 
 
 if st.session_state.file_save is not None:
+	n_data = st.number_input('Points to Analyse', min_value=0)
 	if st.session_state.run_num == 0:
-		data = data_processing(st.session_state.file_save)
+		data = data_processing(st.session_state.file_save, n_data)
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
