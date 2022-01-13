@@ -61,7 +61,7 @@ if st.session_state.run_num == 0:
 
 if st.session_state.file_save is not None:
 	if st.session_state.run_num == 0:
-		data = data_processing(st.session_state.file_save, n_data)
+		data = data_processing(st.session_state.file_save)
 		st.session_state.data_save = data
 	
 	st.markdown('This is the loaded data')
