@@ -27,8 +27,8 @@ def data_processing(file):
 
       	#-----Defining the date that the test were ran--------------
 	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
-			data['TimeStamp'].str.slice(start=3, stop=10) + 
-			data['TimeStamp'].str.slice(start=10, stop=19))
+                      data['TimeStamp'].str.slice(start=3, stop=10) + 
+                      data['TimeStamp'].str.slice(start=10, stop=19))
 
 	data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
 	
@@ -87,8 +87,6 @@ if st.session_state.file_save is not None:
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
-	
-	check_std = form1.checkbox('Print Outliers Description')
 
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
@@ -98,9 +96,8 @@ if st.session_state.file_save is not None:
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
 	
-	st.dataframe(st.session_state.data_save)
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot), check_std)
+		fig = pf.plot(df_plot, list(var_plot))
 		st.plotly_chart(fig)
