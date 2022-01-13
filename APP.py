@@ -87,6 +87,8 @@ if st.session_state.file_save is not None:
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
+	
+	check_std = form1.checkbox('Print Outliers Description')
 
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
@@ -99,5 +101,5 @@ if st.session_state.file_save is not None:
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot))
+		fig = pf.plot(df_plot, list(var_plot), check_std)
 		st.plotly_chart(fig)
