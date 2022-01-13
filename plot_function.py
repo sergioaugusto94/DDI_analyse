@@ -41,9 +41,14 @@ def plot(df_plot, lista):
 	# Recorded Data
 	fig = px.scatter(width=1100, height=600, title=title_df)
 
-	for i in range(0, len(var)):
-		fig.add_trace(go.Scatter(x = df_plot['Date'], y=df_plot[var[i]], 
-					 mode='markers', name=var[i]))
+	symbols = ['circle', 'square', 'diamond', 'x', 'cross', 'triangle', 'hexagon']
+	colors = ['red', 'blue','green','yellow', 'coral', 'snow', 'k', 'magenta', 'cyan', 'lime']
+	for i in range(len(var)):
+		for j in range(df_plot['Eng_dummy'].unique().shape[0]):
+			df_plot2 = df_plot.where(df_plot['Eng_dummy']==j).dropna(subset=['File Name'])
+			fig.add_trace(go.Scatter(x = df_plot2['Date'], y=df_plot2[var[i]], 
+						 mode='markers', name=var[i]+'_'+df_plot2['Engine'].iloc[0], 
+						 marker=dict(symbol=symbols[j], color=colors[i])))
 
 	melted_out = outliers.melt(id_vars=['Date']).dropna(subset=['value'])
 
