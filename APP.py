@@ -22,6 +22,8 @@ def data_processing(file):
                                 'n VVT_ICL1_DIAL_CL_VAL', 
                                 'n DL_SPK_ADV', 
                                 'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	data['Engine'] = data['File Name'].str[0:11]
+	data['Eng_dummy'] = pd.get_dummies(data['Engine'])[data['Engine'].iloc[0]]
 
       	#-----Defining the date that the test were ran--------------
 	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
