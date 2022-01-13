@@ -87,7 +87,7 @@ if st.session_state.file_save is not None:
 	
 	check_std = form1.checkbox('Print Outliers Description')
 
-	#n_data = st.number_input('Points to Analyse', value=500, step=1)
+	n_data = st.number_input('Points to Analyse', value=500, step=1)
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
