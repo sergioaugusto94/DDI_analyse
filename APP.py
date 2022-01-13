@@ -10,7 +10,7 @@ import plot_function as pf
 def data_processing(file, n_data):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
-	data = data.sort_values('Date').tail(n_data).shape[0]
+	data = data.sort_values('Date').tail(n_data)
 	#--------Variables-Units-Precision-------
 	units = data.iloc[0,:]
 	precision = data.iloc[1,:]
