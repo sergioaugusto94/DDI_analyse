@@ -6,6 +6,7 @@ import pandas as pd
 def plot(df_plot, lista, check_std):
 
 	var = lista
+	
     # Defining the plot title
 	thr_title = 'WOT, '
 	vvl_state = 'HL, '
