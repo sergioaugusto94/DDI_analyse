@@ -46,9 +46,7 @@ def plot(df_plot, lista, check_std):
 	for i in range(len(var)):
 		for j in range(df_plot['Eng_dummy'].unique().shape[0]):
 			df_plot2 = df_plot.where(df_plot['Eng_dummy']==j).dropna(subset=['File Name'])
-			fig.add_trace(go.Scatter(x = df_plot2['Date'], y=df_plot2[var[i]], 
-						 mode='markers', name=var[i]+'_'+df_plot2['Engine'].iloc[0], 
-						 marker=dict(symbol=symbols[j], color=colors[i])))
+			fig.add_trace(go.Scatter(x = df_plot2['Date'], y=df_plot2[var[i]], mode='markers', name=var[i]+'_'+df_plot2['Engine'].iloc[0], marker=dict(symbol=symbols[j], color=colors[i])))
 
 	melted_out = outliers.melt(id_vars=['Date']).dropna(subset=['value'])
 
