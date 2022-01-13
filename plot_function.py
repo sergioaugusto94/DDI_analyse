@@ -44,7 +44,7 @@ def plot(df_plot, lista, check_std):
 	symbols = ['circle', 'square', 'diamond', 'x', 'cross', 'triangle', 'hexagon']
 	colors = ['red', 'blue','green','yellow', 'coral', 'snow', 'k', 'magenta', 'cyan', 'lime']
 	for i in range(len(var)):
-		for j in range(df_plot['Eng_dummy'].unique().shape[0]):
+		for j in df_plot['Eng_dummy'].unique().astype(int):
 			df_plot2 = df_plot.where(df_plot['Eng_dummy']==j).dropna(subset=['File Name'])
 			fig.add_trace(go.Scatter(x = df_plot2['Date'], y=df_plot2[var[i]], 
 						 mode='markers', name=var[i]+'_'+df_plot2['Engine'].iloc[0], 
