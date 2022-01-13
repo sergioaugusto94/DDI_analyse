@@ -27,8 +27,8 @@ def data_processing(file):
 
       	#-----Defining the date that the test were ran--------------
 	data['Date'] = (data['TimeStamp'].str.slice(start=20) + 
-                      data['TimeStamp'].str.slice(start=3, stop=10) + 
-                      data['TimeStamp'].str.slice(start=10, stop=19))
+			data['TimeStamp'].str.slice(start=3, stop=10) + 
+			data['TimeStamp'].str.slice(start=10, stop=19))
 
 	data['Date'] = pd.to_datetime(data['Date'], format='%Y %b %d %H:%M:%S')
 	
