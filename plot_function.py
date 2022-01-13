@@ -3,10 +3,9 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
-def plot(df_plot, lista, check_std, n_data):
+def plot(df_plot, lista, check_std):
 
 	var = lista
-	df_plot = df_plot.sort_values('Date').tail(n_data)
     # Defining the plot title
 	thr_title = 'WOT, '
 	vvl_state = 'HL, '
