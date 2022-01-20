@@ -2,7 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def plot(df_plot, lista, check_std, n_data, std_var):
+def plot(df_plot, lista, check_std, n_data, std_mult):
 
 	var = lista
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
