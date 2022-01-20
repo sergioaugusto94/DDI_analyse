@@ -91,6 +91,8 @@ if st.session_state.file_save is not None:
 	
 	std_input = form1.number_input('Std multiplier', value=1.5, step=0.1)
 	
+	period = form1.number_input('Moving Average Period', value=5, step=1)
+	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
 	
@@ -102,5 +104,5 @@ if st.session_state.file_save is not None:
 	if plot_button:
 		st.session_state.run_num = 1
 		#fig = pf.plot(df_plot, list(var_plot), check_std)
-		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input)
+		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
