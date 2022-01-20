@@ -2,10 +2,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def plot(df_plot, lista, check_std, n_data, std_mult):
+def plot(df_plot, lista, check_std, n_data, std_mult, period):
 
 	var = lista
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
+	df_plot['MA'] = df_plot[var].rolling(window=period).mean()
+
 	
 	# Defining the plot title
 	thr_title = 'WOT, '
@@ -22,7 +24,7 @@ def plot(df_plot, lista, check_std, n_data, std_mult):
 		    thr_title + vvl_state + 
 		    str(df_plot['n DL_SPK_ADV'].iloc[0])+' Spark deg')
 
-    # Defining mean and std
+    	# Defining mean and std
 	mean = [df_plot[var].unstack().mean()]*df_plot.shape[0]
 	std_max = [df_plot[var].unstack().mean() + 
 		   std_mult*df_plot[var].unstack().std()]*df_plot.shape[0]
@@ -30,7 +32,7 @@ def plot(df_plot, lista, check_std, n_data, std_mult):
 		   std_mult*df_plot[var].unstack().std()]*df_plot.shape[0]
 
 
-    # Outliers Data Frame
+    	# Outliers Data Frame
 
 	outliers = df_plot[var][(df_plot[var] < df_plot[var].unstack().mean() - std_mult*df_plot[var].unstack().std()) | 
 				(df_plot[var] > std_mult*df_plot[var].unstack().std() + 
@@ -66,20 +68,22 @@ def plot(df_plot, lista, check_std, n_data, std_mult):
 				 line=dict(dash='dot', color='black'), name='Mean'))
 	fig.add_annotation(x=df_plot['Date'].min(), y=mean[0],
 			   text=round(mean[0], 2), showarrow=False, xanchor="left", yshift=8)
-    # Std Max Line
+    	# Std Max Line
 	fig.add_trace(go.Scatter(x=df_plot['Date'], y=std_max, mode='lines', 
 				 line=dict(dash='dot', color='red'), name='Std max'))
 	fig.add_annotation(x=df_plot['Date'].min(), y=std_max[0],
 			   text=(str(round(std_max[0],2))+ ' (+ ' + 
 				 str(round((std_max[0]-mean[0])/mean[0]*100,2)) + 
 				 '%)'), showarrow=False, xanchor="left", yshift=8)
-    # Std Min Line
+    	# Std Min Line
 	fig.add_trace(go.Scatter(x=df_plot['Date'], y=std_min, mode='lines', 
 				 line=dict(dash='dot', color='orange'), name='Std min'))
 	fig.add_annotation(x=df_plot['Date'].min(), y=std_min[0],
 			   text=(str(round(std_min[0],2))+ ' (- ' + 
 				 str(round((std_min[0]-mean[0])/mean[0]*100,2)) + 
 				 '%)'), showarrow=False, xanchor="left", yshift=8)
-
+	# Moving Average Line
+	fig.add_trace(go.Scatter(x=df_plot['Date'], y=df_plot['MA'], mode='lines', 
+				 line=dict(color='blue'), name='Moving Avg.'))
 
 	return fig
