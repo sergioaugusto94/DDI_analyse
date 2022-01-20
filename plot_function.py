@@ -2,7 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def plot(df_plot, lista, check_std, n_data):
+def plot(df_plot, lista, check_std, n_data, std_var):
 
 	var = lista
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
@@ -25,15 +25,15 @@ def plot(df_plot, lista, check_std, n_data):
     # Defining mean and std
 	mean = [df_plot[var].unstack().mean()]*df_plot.shape[0]
 	std_max = [df_plot[var].unstack().mean() + 
-		   df_plot[var].unstack().std()]*df_plot.shape[0]
+		   std_mult*df_plot[var].unstack().std()]*df_plot.shape[0]
 	std_min = [df_plot[var].unstack().mean() - 
-		   df_plot[var].unstack().std()]*df_plot.shape[0]
+		   std_mult*df_plot[var].unstack().std()]*df_plot.shape[0]
 
 
     # Outliers Data Frame
 
-	outliers = df_plot[var][(df_plot[var] < df_plot[var].unstack().mean() - df_plot[var].unstack().std()) | 
-				(df_plot[var] > df_plot[var].unstack().std() + 
+	outliers = df_plot[var][(df_plot[var] < df_plot[var].unstack().mean() - std_mult*df_plot[var].unstack().std()) | 
+				(df_plot[var] > std_mult*df_plot[var].unstack().std() + 
 				 df_plot[var].unstack().mean())].dropna(how='all')
 	outliers = pd.merge(df_plot['Date'], outliers, left_index=True, right_index=True)
 	
