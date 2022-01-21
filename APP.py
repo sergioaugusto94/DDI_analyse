@@ -10,6 +10,7 @@ import plot_function as pf
 def data_processing(file):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
+	data.drop(data[data.columns].std()[data[data.columns].std()<0.001].index, axis=1)
 
 	#--------Variables-Units-Precision-------
 	units = data.iloc[0,:]
