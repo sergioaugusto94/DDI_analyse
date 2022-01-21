@@ -66,7 +66,7 @@ if st.session_state.run_num == 0:
 		   'IMEP04LNV M', 'IMEP05COV M', 'IMEP05LNV M', 'IMEP06COV M', 'IMEP06LNV M',
 		   'KNINSQ Knock Limit', 'KNINSQ M', 'KNINSQ RT_max', 'KnockHeavy', 'KnockLight', 'KnockModerate', 'n ACT', 
 		   'n ACT_SPK_CYL1', 'n BASE_SPK', 'n DL_ETRQ_SO', 'n ECT', 'n SPK_ADJ', 'n VVT_EXH_CAM_1_CL_POS', 
-		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_EXH_CAM_M_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
+		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
 		   'n VVT_INT_CAM_2_CL_POS', 'NOX', 'O2', 'p Coolant Out SI', 'p Corr F SI', 'p Crankcase SI', 'p E Left SI', 
 		   'p E Right SI', 'p Fuel Rail SI', 'p Man Abs SI', 'p Oil SI', 't Corr F SI', 't E Left SI', 't E Right SI', 
 		   't Fuel Rail SI', 't Oil Gallery SI', 'VE_measured', 'VE_Nominal']
