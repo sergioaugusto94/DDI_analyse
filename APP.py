@@ -126,7 +126,7 @@ if st.session_state.file_save is not None:
 
 	if plot_button:
 		st.session_state.run_num = 1
-		#fig = pf.plot(df_plot, list(var_plot), check_std)
 		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
-		st.selectbox('outliers', pf.outliers(df_plot, std_input))
+		lista_outliers = pf.outliers(df_plot, std_input)
+		st.selectbox('outliers', lista_outliers)
