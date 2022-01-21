@@ -2,11 +2,26 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
+
+def outliers_list(df_plot, stdmm):
+	colunas = df_plot.std().index.values
+	dfplot22 = df_plot.copy()
+	for i in colunas:
+		mediadf = df_plot[i].mean()
+		stddf = df_plot[i].std()
+		dfplot22[i] = df_plot.loc[(df_plot[i] > mediadf+stdmm*stddf) | (df_plot[i] < mediadf-stdmm*stddf)]
+	dfplot22.tail(5).dropna(axis=1, how='all')
+	
+	return dfplot22.columns.values.tolist()
+	
+
 def plot(df_plot, lista, check_std, n_data, std_mult, period):
 
 	var = lista
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
 	df_plot['MA'] = df_plot[var].rolling(window=period).mean().mean(axis=1)
+	df_plot = df_plot.drop(df_plot[df_plot.columns].std()[df_plot[df_plot.columns].std()<0.001].index, axis=1)
+
 
 	
 	# Defining the plot title
