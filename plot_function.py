@@ -3,6 +3,18 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
+def outliers(df_plot, std_mult):
+	colunas = df_plot.std().index.values
+	dfplot22 = df_plot.copy()
+	for i in colunas:
+		mediadf = df_plot[i].mean()
+		stddf = df_plot[i].std()
+		dfplot22[i] = df_plot.loc[(df_plot[i] > mediadf+std_mult*stddf) | (df_plot[i] < mediadf-std_mult*stddf)]
+	dfplot22.tail(5).dropna(axis=1, how='all')
+	
+	return dfplot22.columns.values.tolist()
+
+
 def plot(df_plot, lista, check_std, n_data, std_mult, period):
 
 	var = lista
@@ -89,14 +101,8 @@ def plot(df_plot, lista, check_std, n_data, std_mult, period):
 	fig.add_trace(go.Scatter(x=df_plot['Date'], y=df_plot['MA'], mode='lines', 
 				 line=dict(color='blue'), name='Moving Avg.'))
 	
-	colunas = df_plot.std().index.values
-	dfplot22 = df_plot.copy()
-	for i in colunas:
-		mediadf = df_plot[i].mean()
-		stddf = df_plot[i].std()
-		dfplot22[i] = df_plot.loc[(df_plot[i] > mediadf+std_mult*stddf) | (df_plot[i] < mediadf-std_mult*stddf)]
-	dfplot22.tail(5).dropna(axis=1, how='all')
+
 	
 
-	return fig, dfplot22.columns.values.tolist()
+	return fig
 
