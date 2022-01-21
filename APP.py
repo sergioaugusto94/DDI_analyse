@@ -100,8 +100,8 @@ if st.session_state.file_save is not None:
 	df_plot2 = df_plot.drop(df_plot[df_plot.columns].std()[df_plot[df_plot.columns].std()<0.001].index, axis=1)
 
 	var_plot = form1.multiselect(
-	'Choose the variable to be ploted', df_plot2.columns.values.to_list())
-	
+	'Choose the variable to be ploted', df_plot2.columns.values.tolist())
+
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
 	
