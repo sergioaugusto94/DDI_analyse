@@ -86,6 +86,8 @@ if st.session_state.file_save is not None:
 	
 	if st.checkbox('Show Loaded Data'):
 		st.dataframe(st.session_state.data_save)
+		
+	vars_selection = st.radio('Variables Selection', ('Important Vars', 'All Vars') 
 
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
@@ -96,8 +98,12 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns.values.tolist()
 	
-	var_plot = form1.multiselect(
-	'Choose the variable to be ploted', st.session_state.txt_vars)
+	if vars_selection == 'Important Vars':
+		var_plot = form1.multiselect(
+			'Choose the variable to be ploted', st.session_state.txt_vars)
+	else:
+		var_plot = form1.multiselect(
+			'Choose the variable to be ploted', vars)			  
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
