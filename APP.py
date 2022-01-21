@@ -138,4 +138,4 @@ if st.session_state.file_save is not None:
 			stddf = df_plot[i].std()
 			df_plot[i] = df_plot.loc[(df_plot[i] > mediadf+std_input*stddf) | (df_plot[i] < mediadf-std_input*stddf)]
 
-		st.selectbox('outliers', df_plot.tail(5).dropna(axis=1, how='all').columns.values.tolist())
+		st.selectbox('outliers', df_plot.tail(7).dropna(axis=1, how='all').columns.values.tolist())
