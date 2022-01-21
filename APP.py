@@ -125,17 +125,17 @@ if st.session_state.file_save is not None:
 	plot_state = button_states()
 			
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
+	
+	df_plot2 = df_plot[st.session_state.txt_vars].copy()
+	colunas = df_plot2.std().index.values
+	for i in colunas:
+		mediadf = df_plot2[i].mean()
+		stddf = df_plot2[i].std()
+		df_plot2[i] = df_plot2.loc[(df_plot2[i] > mediadf+std_input*stddf) | (df_plot2[i] < mediadf-std_input*stddf)]
 
 	if plot_button:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot), check_std, std_input, period)
 		st.plotly_chart(fig)
 		
-		df_plot = df_plot[st.session_state.txt_vars]
-		colunas = df_plot.std().index.values
-		for i in colunas:
-			mediadf = df_plot[i].mean()
-			stddf = df_plot[i].std()
-			df_plot[i] = df_plot.loc[(df_plot[i] > mediadf+std_input*stddf) | (df_plot[i] < mediadf-std_input*stddf)]
-
-		st.selectbox('outliers', df_plot.tail(7).dropna(axis=1, how='all').columns.values.tolist())
+		st.selectbox('outliers', df_plot2.tail(7).dropna(axis=1, how='all').columns.values.tolist())
