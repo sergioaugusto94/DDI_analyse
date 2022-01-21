@@ -132,10 +132,11 @@ if st.session_state.file_save is not None:
 		mediadf = df_plot2[i].mean()
 		stddf = df_plot2[i].std()
 		df_plot2[i] = df_plot2.loc[(df_plot2[i] > mediadf+std_input*stddf) | (df_plot2[i] < mediadf-std_input*stddf)]
+		st.selectbox('outliers', df_plot2.tail(7).dropna(axis=1, how='all').columns.values.tolist())
+
 
 	if plot_button:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot), check_std, std_input, period)
 		st.plotly_chart(fig)
 		
-		st.selectbox('outliers', df_plot2.tail(7).dropna(axis=1, how='all').columns.values.tolist())
