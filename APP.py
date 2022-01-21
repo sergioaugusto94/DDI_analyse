@@ -50,6 +50,8 @@ if 'data_save' not in st.session_state:
 	st.session_state.data_save = 0
 if 'file_save' not in st.session_state:
 	st.session_state.file_save = 0
+if 'txt_vars' not in st.session_state:
+	st.session_state.txt_vars = 0
 	
 	
 if st.session_state.run_num == 0:
@@ -65,10 +67,12 @@ if st.session_state.run_num == 0:
 		stripped_line = line.strip()
 		#line_list = stripped_line.split()
 		#var_txt.append(line_list)
-	var_txt.append(stripped_line)
-
-
-txt_file.close()
+		var_txt.append(stripped_line)
+	txt_file.close()
+	
+	st.session_state.txt_vars = var_txt
+	
+	
 
 
 
@@ -93,7 +97,7 @@ if st.session_state.file_save is not None:
 	vars = st.session_state.data_save.columns.values.tolist()
 	
 	var_plot = form1.multiselect(
-	'Choose the variable to be ploted', vars)
+	'Choose the variable to be ploted', st.session_state.txt_vars)
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
