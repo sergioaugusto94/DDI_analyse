@@ -125,14 +125,13 @@ if st.session_state.file_save is not None:
 	plot_state = button_states()
 			
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
-	df_plot = df_plot[st.session_state.txt_vars]
 
 	if plot_button:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot), check_std, std_input, period)
 		st.plotly_chart(fig)
 		
-
+		df_plot = df_plot[st.session_state.txt_vars]
 		colunas = df_plot.std().index.values
 		for i in colunas:
 			mediadf = df_plot[i].mean()
