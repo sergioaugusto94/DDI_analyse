@@ -119,7 +119,12 @@ if st.session_state.file_save is not None:
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
 	
-
+	df_plot = df_plot.drop(df_plot[df_plot.columns].std()[df_plot[df_plot.columns].std()<0.001].index, axis=1)
+	df_plot['CL_dSpeed'] = data['CL_dSpeed']
+	df_plot['n DL_SPK_ADV'] = data['n DL_SPK_ADV']
+	df_plot['n VVL_STATE_ACT'] = data['n VVL_STATE_ACT']
+	df_plot['CL_Throttle'] = data['CL_Throttle']
+	
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
 	
