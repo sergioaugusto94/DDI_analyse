@@ -131,7 +131,7 @@ if st.session_state.file_save is not None:
 	for i in colunas:
 		mediadf = df_plot2[i].mean()
 		stddf = df_plot2[i].std()
-		df_plot2[i] = df_plot2.loc[(df_plot2[i] > mediadf+std_input*stddf) | (df_plot2[i] < mediadf-std_input*stddf)]
+		df_plot2[i] = df_plot.loc[(df_plot[i] > mediadf+std_input*stddf) | (df_plot[i] < mediadf-std_input*stddf)]
 	st.selectbox('outliers', df_plot2.tail(7).dropna(axis=1, how='all').columns.values.tolist())
 
 
