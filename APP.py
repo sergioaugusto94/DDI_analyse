@@ -63,10 +63,10 @@ if st.session_state.run_num == 0:
 	st.session_state.txt_vars = ['BHP SI', 'BMEP SI', 'BMEP SI M', 'BSFC SI', 'c AVGCA50M', 'c ELS_NMEPM', 'c FMEP', 'CO', 
 		   'CO2', 'd Speed', 'd Torque SI', 'FA_AIRMASS mgpc', 'FA1000Avg BP F', 'H', 'HC', 'IMEP SI', 
 		   'IMEP01COV M', 'IMEP01LNV M', 'IMEP02COV M', 'IMEP02LNV M', 'IMEP03COV M', 'IMEP03LNV M', 'IMEP04COV M', 
-		   'IMEP04LNV M', 'IMEP05COV M', 'IMEP05LNV M', 'IMEP06COV M', 'IMEP06LNV M', 'IMEPCOV_Avg', 'IMEPLNV_Avg', 
+		   'IMEP04LNV M', 'IMEP05COV M', 'IMEP05LNV M', 'IMEP06COV M', 'IMEP06LNV M',
 		   'KNINSQ Knock Limit', 'KNINSQ M', 'KNINSQ RT_max', 'KnockHeavy', 'KnockLight', 'KnockModerate', 'n ACT', 
 		   'n ACT_SPK_CYL1', 'n BASE_SPK', 'n DL_ETRQ_SO', 'n ECT', 'n SPK_ADJ', 'n VVT_EXH_CAM_1_CL_POS', 
-		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_EXH_CAM_M_CL_POS', 'n VVT_EXH_CAM_M_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
+		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_EXH_CAM_M_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
 		   'n VVT_INT_CAM_2_CL_POS', 'NOX', 'O2', 'p Coolant Out SI', 'p Corr F SI', 'p Crankcase SI', 'p E Left SI', 
 		   'p E Right SI', 'p Fuel Rail SI', 'p Man Abs SI', 'p Oil SI', 't Corr F SI', 't E Left SI', 't E Right SI', 
 		   't Fuel Rail SI', 't Oil Gallery SI', 'VE_measured', 'VE_Nominal']
