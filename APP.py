@@ -57,6 +57,18 @@ if st.session_state.run_num == 0:
 			    'upload your DDI database.')
 
 	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
+	
+	txt_file = open("var_txt.txt", "r")
+
+	var_txt = []
+	for line in txt_file:
+		stripped_line = line.strip()
+		#line_list = stripped_line.split()
+		#var_txt.append(line_list)
+	var_txt.append(stripped_line)
+
+
+txt_file.close()
 
 
 
