@@ -128,5 +128,13 @@ if st.session_state.file_save is not None:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
-		lista_outliers = pf.outliers(df_plot, std_input)
+
+		
+		colunas = df_plot.std().index.values
+		dfplot22 = df_plot.copy()
+		for i in colunas:
+			mediadf = df_plot[i].mean()
+			stddf = df_plot[i].std()
+			dfplot22[i] = df_plot.loc[(df_plot[i] > mediadf+std_mult*stddf) | (df_plot[i] < mediadf-std_mult*stddf)]
+			
 		st.selectbox('outliers', lista_outliers)
