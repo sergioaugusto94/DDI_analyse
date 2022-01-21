@@ -10,6 +10,7 @@ import plot_function as pf
 def data_processing(file):
 	#--------Loading dataset-------
 	data = pd.read_excel(file, sheet_name='Channel Info')
+	data = data.drop(data[data.columns].std()[data[data.columns].std()<0.001].index, axis=1)
 
 	#--------Variables-Units-Precision-------
 	units = data.iloc[0,:]
@@ -72,8 +73,9 @@ if st.session_state.file_save is not None:
 
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
-		
-				#-----Drop down list for each variable-------
+
+	
+	#-----Drop down list for each variable-------
 	form1 = st.form(key='Options')
 	
 	vars = st.session_state.data_save.columns.values.tolist()
@@ -86,16 +88,22 @@ if st.session_state.file_save is not None:
 	
 	check_std = form1.checkbox('Print Outliers Description')
 
+	n_data = form1.number_input('Points to Analyse', value=500, step=1)
+	
+	std_input = form1.number_input('Std multiplier', value=1.5, step=0.1)
+	
+	period = form1.number_input('Moving Average Period', value=5, step=1)
 	
 	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
 					   	option2).dropna(subset=['File Name'])
 	
-	
+
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
 	
 
 	if plot_button:
 		st.session_state.run_num = 1
-		fig = pf.plot(df_plot, list(var_plot), check_std)
+		#fig = pf.plot(df_plot, list(var_plot), check_std)
+		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
