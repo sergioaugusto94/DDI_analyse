@@ -7,7 +7,6 @@ import pandas as pd
 def plot(df_plot, lista, check_std, n_data, std_mult, period):
 
 	var = lista
-	df_plot = df_plot.sort_values('Date').tail(int(n_data))
 	df_plot['MA'] = df_plot[var].rolling(window=period).mean().mean(axis=1)
 	#df_plot = df_plot.drop(df_plot[df_plot.columns].std()[df_plot[df_plot.columns].std()<0.001].index, axis=1)
 
