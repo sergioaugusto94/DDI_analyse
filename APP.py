@@ -129,4 +129,4 @@ if st.session_state.file_save is not None:
 		#fig = pf.plot(df_plot, list(var_plot), check_std)
 		fig,outliers_list = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
-		st.caption(outliers_list)
+		st.selectbox('outliers', outliers_list)
