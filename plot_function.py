@@ -10,9 +10,8 @@ def outliers(df_plot, std_mult):
 		mediadf = df_plot[i].mean()
 		stddf = df_plot[i].std()
 		dfplot22[i] = df_plot.loc[(df_plot[i] > mediadf+std_mult*stddf) | (df_plot[i] < mediadf-std_mult*stddf)]
-	dfplot22.tail(5).dropna(axis=1, how='all')
 	
-	return dfplot22.columns.values.tolist()
+	return dfplot22.tail(5).dropna(axis=1, how='all').columns.values.tolist()
 
 
 def plot(df_plot, lista, check_std, n_data, std_mult, period):
