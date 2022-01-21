@@ -6,7 +6,7 @@ def plot(df_plot, lista, check_std, n_data, std_mult, period):
 
 	var = lista
 	df_plot = df_plot.sort_values('Date').tail(int(n_data))
-	df_plot['MA'] = df_plot[var].rolling(window=period).mean()
+	df_plot['MA'] = df_plot[var].rolling(window=period).mean().mean(axis=1)
 
 	
 	# Defining the plot title
