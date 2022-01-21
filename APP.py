@@ -130,7 +130,7 @@ if st.session_state.file_save is not None:
 		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
 		st.plotly_chart(fig)
 		
-		df_plot = df_plot[var_plot]
+		df_plot = df_plot[st.session_state.txt_vars]
 		colunas = df_plot.std().index.values
 		for i in colunas:
 			mediadf = df_plot[i].mean()
