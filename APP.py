@@ -87,7 +87,7 @@ if st.session_state.file_save is not None:
 	if st.checkbox('Show Loaded Data'):
 		st.dataframe(st.session_state.data_save)
 		
-	vars_selection = st.radio('Variables Selection', ('Important Vars', 'All Vars') 
+	vars_selection = st.radio('Variables Selection', ('Important Vars', 'All Vars')) 
 
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
