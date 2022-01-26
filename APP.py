@@ -19,10 +19,11 @@ def data_processing(file):
 
       	#--------Removing Empty Rows and Defining Conditions that were ran-------
 	data.dropna(inplace = True, subset = [data.columns[1]])
-	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
-                                'n VVT_ICL1_DIAL_CL_VAL', 
-                                'n DL_SPK_ADV', 
-                                'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	#data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
+        #                        'n VVT_ICL1_DIAL_CL_VAL', 
+        #                        'n DL_SPK_ADV', 
+        #                        'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle']].astype(str).agg('_'.join, axis=1)
 	data['Engine'] = data['File Name'].str[0:11]
 	data['Eng_dummy'] = pd.get_dummies(data['Engine'])[data['Engine'].iloc[0]]
 
