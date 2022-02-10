@@ -2,11 +2,14 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def plot(df_plot, lista, check_std, n_data, std_mult, period):
+
+
+def plot(df_plot, lista, check_std, std_mult, period):
 
 	var = lista
-	df_plot = df_plot.sort_values('Date').tail(int(n_data))
 	df_plot['MA'] = df_plot[var].rolling(window=period).mean().mean(axis=1)
+	#df_plot = df_plot.drop(df_plot[df_plot.columns].std()[df_plot[df_plot.columns].std()<0.001].index, axis=1)
+
 
 	
 	# Defining the plot title
@@ -85,5 +88,8 @@ def plot(df_plot, lista, check_std, n_data, std_mult, period):
 	# Moving Average Line
 	fig.add_trace(go.Scatter(x=df_plot['Date'], y=df_plot['MA'], mode='lines', 
 				 line=dict(color='blue'), name='Moving Avg.'))
+	
+
+	
 
 	return fig
