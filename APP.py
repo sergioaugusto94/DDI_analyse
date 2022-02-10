@@ -19,10 +19,11 @@ def data_processing(file):
 
       	#--------Removing Empty Rows and Defining Conditions that were ran-------
 	data.dropna(inplace = True, subset = [data.columns[1]])
-	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
-                                'n VVT_ICL1_DIAL_CL_VAL', 
-                                'n DL_SPK_ADV', 
-                                'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	#data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle', 
+        #                        'n VVT_ICL1_DIAL_CL_VAL', 
+        #                        'n DL_SPK_ADV', 
+        #                        'n VVL_STATE_ACT']].astype(str).agg('_'.join, axis=1)
+	data['Condition'] = data[['CL_dSpeed', 'CL_BMEP SI', 'CL_Throttle']].astype(str).agg('_'.join, axis=1)
 	data['Engine'] = data['File Name'].str[0:11]
 	data['Eng_dummy'] = pd.get_dummies(data['Engine'])[data['Engine'].iloc[0]]
 
@@ -50,6 +51,8 @@ if 'data_save' not in st.session_state:
 	st.session_state.data_save = 0
 if 'file_save' not in st.session_state:
 	st.session_state.file_save = 0
+if 'txt_vars' not in st.session_state:
+	st.session_state.txt_vars = 0
 	
 	
 if st.session_state.run_num == 0:
@@ -57,6 +60,20 @@ if st.session_state.run_num == 0:
 			    'upload your DDI database.')
 
 	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
+	
+	st.session_state.txt_vars = ['BHP SI', 'BMEP SI', 'BMEP SI M', 'BSFC SI', 'c AVGCA50M', 'c ELS_NMEPM', 'c FMEP', 'CO', 
+		   'CO2', 'd Speed', 'd Torque SI', 'FA_AIRMASS mgpc', 'FA1000Avg BP F', 'H', 'HC', 'IMEP SI', 
+		   'IMEP01COV M', 'IMEP01LNV M', 'IMEP02COV M', 'IMEP02LNV M', 'IMEP03COV M', 'IMEP03LNV M', 'IMEP04COV M', 
+		   'IMEP04LNV M', 'IMEP05COV M', 'IMEP05LNV M', 'IMEP06COV M', 'IMEP06LNV M',
+		   'KNINSQ Knock Limit', 'KNINSQ M', 'KNINSQ RT_max', 'KnockHeavy', 'KnockLight', 'KnockModerate', 'n ACT', 
+		   'n ACT_SPK_CYL1', 'n BASE_SPK', 'n DL_ETRQ_SO', 'n ECT', 'n SPK_ADJ', 'n VVT_EXH_CAM_1_CL_POS', 
+		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
+		   'n VVT_INT_CAM_2_CL_POS', 'NOX', 'O2', 'p Coolant Out SI', 'p Corr F SI', 'p Crankcase SI', 'p E Left SI', 
+		   'p E Right SI', 'p Fuel Rail SI', 'p Man Abs SI', 'p Oil SI', 't Corr F SI', 't E Left SI', 't E Right SI', 
+		   't Fuel Rail SI', 't Oil Gallery SI', 'VE_measured', 'VE_Nominal']
+
+	
+	
 
 
 
@@ -70,6 +87,8 @@ if st.session_state.file_save is not None:
 	
 	if st.checkbox('Show Loaded Data'):
 		st.dataframe(st.session_state.data_save)
+		
+	vars_selection = st.radio('Variables Selection', ('Important Vars', 'All Vars')) 
 
 	#-----Creating different dataframes for each engine operation-------
 	points = sorted(st.session_state.data_save['Condition'].unique())
@@ -80,8 +99,12 @@ if st.session_state.file_save is not None:
 	
 	vars = st.session_state.data_save.columns.values.tolist()
 	
-	var_plot = form1.multiselect(
-	'Choose the variable to be ploted', vars)
+	if vars_selection == 'Important Vars':
+		var_plot = form1.multiselect(
+			'Choose the variable to be ploted', st.session_state.txt_vars)
+	else:
+		var_plot = form1.multiselect(
+			'Choose the variable to be ploted', vars)			  
 
 	option2 = form1.selectbox(
 	'Choose engine operation condition', points)
@@ -98,12 +121,22 @@ if st.session_state.file_save is not None:
 					   	option2).dropna(subset=['File Name'])
 	
 
+	
 	plot_button = form1.form_submit_button('Plot')
 	plot_state = button_states()
+			
+	df_plot = df_plot.sort_values('Date').tail(int(n_data))
 	
+	df_plot2 = df_plot[st.session_state.txt_vars].copy()
+	colunas = df_plot2.std().index.values
+	for i in colunas:
+		mediadf = df_plot2[i].mean()
+		stddf = df_plot2[i].std()
+		df_plot2[i] = df_plot.loc[(df_plot[i] > mediadf+std_input*stddf) | (df_plot[i] < mediadf-std_input*stddf)]
+	st.selectbox('outliers', df_plot2.tail(7).dropna(axis=1, how='all').columns.values.tolist())
+
 
 	if plot_button:
 		st.session_state.run_num = 1
-		#fig = pf.plot(df_plot, list(var_plot), check_std)
-		fig = pf.plot(df_plot, list(var_plot), check_std, n_data, std_input, period)
+		fig = pf.plot(df_plot, list(var_plot), check_std, std_input, period)
 		st.plotly_chart(fig)
