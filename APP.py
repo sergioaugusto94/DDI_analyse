@@ -91,7 +91,7 @@ if st.session_state.file_save is not None:
 	vars_selection = st.radio('Variables Selection', ('Important Vars', 'All Vars')) 
 
 	#-----Creating different dataframes for each engine operation-------
-	points = sorted(st.session_state.data_save['Condition'].unique())
+	points = sorted(st.session_state.data_save['CS ID'].unique())
 
 	
 	#-----Drop down list for each variable-------
@@ -117,7 +117,7 @@ if st.session_state.file_save is not None:
 	
 	period = form1.number_input('Moving Average Period', value=5, step=1)
 	
-	df_plot = st.session_state.data_save.where(st.session_state.data_save['Condition'] == 
+	df_plot = st.session_state.data_save.where(st.session_state.data_save['CS ID'] == 
 					   	option2).dropna(subset=['File Name'])
 	
 
@@ -140,4 +140,3 @@ if st.session_state.file_save is not None:
 		st.session_state.run_num = 1
 		fig = pf.plot(df_plot, list(var_plot), check_std, std_input, period)
 		st.plotly_chart(fig)
-		
