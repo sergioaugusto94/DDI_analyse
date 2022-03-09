@@ -93,4 +93,3 @@ def plot(df_plot, lista, check_std, std_mult, period):
 	
 
 	return fig
-
