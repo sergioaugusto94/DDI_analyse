@@ -61,16 +61,28 @@ if st.session_state.run_num == 0:
 
 	st.session_state.file_save = st.sidebar.file_uploader("# Upload the data", type=['xlsx'])
 	
-	st.session_state.txt_vars = ['BHP SI', 'BMEP SI', 'BMEP SI M', 'BSFC SI', 'c AVGCA50M', 'c ELS_NMEPM', 'c FMEP', 'CO', 
-		   'CO2', 'd Speed', 'd Torque SI', 'FA_AIRMASS mgpc', 'FA1000Avg BP F', 'H', 'HC', 'IMEP SI', 
-		   'IMEP01COV M', 'IMEP01LNV M', 'IMEP02COV M', 'IMEP02LNV M', 'IMEP03COV M', 'IMEP03LNV M', 'IMEP04COV M', 
-		   'IMEP04LNV M', 'IMEP05COV M', 'IMEP05LNV M', 'IMEP06COV M', 'IMEP06LNV M',
-		   'KNINSQ Knock Limit', 'KNINSQ M', 'KNINSQ RT_max', 'KnockHeavy', 'KnockLight', 'KnockModerate', 'n ACT', 
-		   'n ACT_SPK_CYL1', 'n BASE_SPK', 'n DL_ETRQ_SO', 'n ECT', 'n SPK_ADJ', 'n VVT_EXH_CAM_1_CL_POS', 
-		   'n VVT_EXH_CAM_2_CL_POS', 'n VVT_INT_CAM_1_CL_POS', 
-		   'n VVT_INT_CAM_2_CL_POS', 'NOX', 'O2', 'p Coolant Out SI', 'p Corr F SI', 'p Crankcase SI', 'p E Left SI', 
-		   'p E Right SI', 'p Fuel Rail SI', 'p Man Abs SI', 'p Oil SI', 't Corr F SI', 't E Left SI', 't E Right SI', 
-		   't Fuel Rail SI', 't Oil Gallery SI', 'VE_measured', 'VE_Nominal']
+	st.session_state.txt_vars = [ "BackPressDiff", "BHP SI", "BHP", "BMEP SI M", "BSFC SI", "c AVGCA50M", 
+				     "c CA50_EAM", "c ELS_IMEPC", "c ELS_IMEPM", "c ELS_NMEPM", "c ELS_PMEPM", 
+				     "c FMEP", "c KNINSQ_01M", "CL_n CHGRAT", "CO T", "CO", "CO2 T", "CO2", 
+				     "d Speed", "d Torque SI S", "d Torque SI", "FA_AIRMASS mgpc", "FA1000Avg BP F", 
+				     "FA1000L BP F", "FA1000R BP F", "H", "HC T", "HC", "IMEP SI", "IMEP01COV M", 
+				     "IMEP01LNV M", "IMEP02COV M", "IMEP02LNV M", "IMEP03COV M", "IMEP03LNV M", 
+				     "IMEP04COV M", "IMEP04LNV M", "IMEP05COV M", "IMEP05LNV M", "IMEP06COV M", 
+				     "IMEP06LNV M", "KL_01", "KNINSQ Knock Limit", "KNINSQ M", "KNINSQ RT_max", 
+				     "KnockHeavy", "KnockLight", "KnockModerate", "m Fuel SI", "MM Fuel Density", 
+				     "n ACT", "n ACT_SPK_CYL1", "n BARO_HI_RES", "n BASE_SPK", "n DELTHR", 
+				     "n DIAL_EHBVC_FDB_POSITION", "n DIAL_ESMD_DEL_POSN_DES", "n DL_ETRQ_SO", 
+				     "n ECT", "n EGR_COOLER_TEMP_SCALED", "n EHBVC_DES_POSITION", "n EHBVC_FDB_POSITION", 
+				     "n PRATIO", "n SENSED_MAP_HIRES", "n SPK_ADJ", "n VIT_1_1", "n VSFP_ACT_FUEL_PRESS", 
+				     "n VVL_STATE_ACT", "n VVT_EXH_CAM_1_CL_POS", "n VVT_EXH_CAM_2_CL_POS", 
+				     "n VVT_INT_CAM_1_CL_POS", "n VVT_INT_CAM_2_CL_POS", "NOX T", "NOX", 
+				     "O2 T", "O2", "p Coolant Out SI", "p Corr F SI", "p Crankcase SI", 
+				     "p E Left SI", "p E Right SI", "p Fuel Rail SI", "p Man Abs SI", 
+				     "p Oil SI", "PARTCNT_CORR", "t ACT SI", "t Cat Left F SI", "t Cat Left R SI", 
+				     "t Cat Right F SI", "t Cat Right R SI", "t Coolant In SI", "t Coolant Out SI", 
+				     "t Corr F SI", "t E Left SI", "t E Right SI", "t Fuel Rail SI", "t Oil Gallery SI", 
+				     "VE_measured", "VE_Nominal"
+]
 
 	
 	
